@@ -1,0 +1,24 @@
+{
+  "name": "makeflow-pc",
+  "private": true,
+  "version": "1.0.0",
+  "description": "The PC end of Makeflow.",
+  "main": "build/main.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "check": "tsc -p .",
+    "start": "electron ./build/main.js",
+    "pack": ""
+  },
+  "author": "mokuo",
+  "license": "ISC",
+  "devDependencies": {
+    "@magicspace/configs": "^0.2.5",
+    "electron": "^9.1.1",
+    "husky": "^4.2.5",
+    "prettier": "^2.0.5",
+    "prettier-plugin-organize-imports": "^1.1.1",
+    "typescript": "^3.9.7"
+  }
+}
