@@ -34,13 +34,13 @@ class AppControl {
   }
 
   exit(): void {
-    delete appControl.mainWindow;
-    delete appControl.tray;
+    delete this.mainWindow;
+    delete this.tray;
     app.exit(0);
   }
 
   hideMainWindow(): void {
-    appControl.mainWindow.hide();
+    this.mainWindow.hide();
   }
 
   showMainWindow(): void {
