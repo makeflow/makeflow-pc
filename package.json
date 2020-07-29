@@ -46,7 +46,7 @@
     "mac": {
       "category": "public.app-category.productivity",
       "target": "pkg",
-      "icon": "resources/image/logo.icns"
+      "icon": "resources/image/logo-mac.png"
     },
     "win": {
       "target": [

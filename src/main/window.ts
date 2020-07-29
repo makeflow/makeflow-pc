@@ -8,13 +8,19 @@ import {
   WINDOW_TITLE,
 } from './config';
 import {image} from './resouces';
+import {switchPlatform} from './utils';
 
 export function createMainWindow(): void {
+  const iconPath = switchPlatform({
+    win32: image.logo.ico,
+    darwin: image.logoMac.png,
+  });
+
   const mainWin = new BrowserWindow({
     minWidth: MIN_WINDOW_WIDTH,
     minHeight: MIN_WINDOW_HEIGHT,
     title: WINDOW_TITLE,
-    icon: image.logo.ico,
+    icon: iconPath,
     show: false,
   });
 

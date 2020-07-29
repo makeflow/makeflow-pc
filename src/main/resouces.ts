@@ -11,4 +11,7 @@ export const image = {
     ico: getImagePath('logo.ico'),
     png: getImagePath('logo.png'),
   },
+  logoMac: {
+    png: getImagePath('logo-mac.png'),
+  },
 };
