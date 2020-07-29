@@ -1,11 +1,22 @@
-name: Build
+name: Build Electron app
 
 on:
   push:
-    -tags:
+    tags:
       - 'v*'
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Run check
+        run: |
+          npm install
+          npm run check
+
   release:
     runs-on: ${{ matrix.os }}
 

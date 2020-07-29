@@ -7,7 +7,7 @@ if [ -z "$VERSION" ]; then
   exit 1
 fi
 
-npm version "$VERSION"
+npm version "$VERSION" --allow-same-version
 
 git add package.json
 git commit -m "release $VERSION"
