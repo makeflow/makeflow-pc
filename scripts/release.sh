@@ -13,11 +13,11 @@ if [ 0 -ne $? ]; then
   exit 1
 fi
 
-git add package.json
+git add package.json package-lock.json
 git commit -m "release $VERSION"
 
 TAG="v$VERSION"
 
-git tag "$TAG"
+# git tag "$TAG"
 git push
 git push origin "$TAG"
