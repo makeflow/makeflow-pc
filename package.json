@@ -23,7 +23,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "full-build": "rm -rf out && npm run compile && npm run dist"
+    "build": "rm -rf out && npm run compile",
+    "release": "sh ./scripts/release.sh"
   },
   "husky": {
     "hooks": {
@@ -39,7 +40,8 @@
     "files": [
       "!*.config.js",
       "!src",
-      "!tsconfig.json"
+      "!tsconfig.json",
+      "!scripts"
     ],
     "mac": {
       "category": "public.app-category.productivity",
