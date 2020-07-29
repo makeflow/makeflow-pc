@@ -9,6 +9,10 @@ fi
 
 npm version "$VERSION" --allow-same-version
 
+if [ 0 -ne $? ]; then
+  exit 1
+fi
+
 git add package.json
 git commit -m "release $VERSION"
 
