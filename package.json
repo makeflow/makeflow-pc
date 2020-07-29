@@ -45,8 +45,8 @@
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "target": "pkg",
-      "icon": "resources/image/logo-mac.png"
+      "target": "dmg",
+      "icon": "resources/image/logo-mac.icns"
     },
     "win": {
       "target": [

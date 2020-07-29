@@ -1,14 +1,14 @@
-export function isWindows(cb?: () => void): boolean {
+export function isWindows(callback?: () => void): boolean {
   if (process.platform === 'win32') {
-    cb?.();
+    callback?.();
     return true;
   }
   return false;
 }
 
-export function isMac(cb?: () => void): boolean {
+export function isMac(callback?: () => void): boolean {
   if (process.platform === 'darwin') {
-    cb?.();
+    callback?.();
     return true;
   }
   return false;

@@ -5,12 +5,12 @@ import {RESOURCES_PATH} from './path';
 class Images {
   tray = switchPlatform({
     win32: this.getImagePath('logo.ico'),
-    darwin: this.getImagePath('logo-mac-32.png'),
+    darwin: this.getImagePath('mac-tray-Template.png'),
   });
 
   windowIcon = switchPlatform({
     win32: this.getImagePath('logo.ico'),
-    darwin: this.getImagePath('logo-mac-32.png'),
+    darwin: this.getImagePath('mac-tray-Template.png'),
   });
 
   private getImagePath(filename: string): string {
