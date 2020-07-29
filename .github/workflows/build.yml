@@ -18,7 +18,10 @@ jobs:
           npm run check
 
   release:
+    needs: check
+
     runs-on: ${{ matrix.os }}
+    if: github.event_name == 'push'
 
     strategy:
       matrix:
