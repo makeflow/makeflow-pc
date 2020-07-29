@@ -1,10 +1,3 @@
-import {app} from 'electron';
-import {createTray} from './tray';
-import {createMainWindow} from './window';
+import {appControl} from './app-control';
 
-app.on('ready', main);
-
-function main(): void {
-  createMainWindow();
-  createTray();
-}
+appControl.run();

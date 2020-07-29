@@ -1,9 +1,17 @@
-export function isWindows(): boolean {
-  return process.platform === 'win32';
+export function isWindows(cb?: () => void): boolean {
+  if (process.platform === 'win32') {
+    cb?.();
+    return true;
+  }
+  return false;
 }
 
-export function isMac(): boolean {
-  return process.platform === 'darwin';
+export function isMac(cb?: () => void): boolean {
+  if (process.platform === 'darwin') {
+    cb?.();
+    return true;
+  }
+  return false;
 }
 
 type Cases<T> = {
