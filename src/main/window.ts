@@ -1,6 +1,5 @@
 import {BrowserWindow, Menu} from 'electron';
 import {appControl} from './app-control';
-import {image} from './assets';
 import {
   ENDPOINT,
   MIN_WINDOW_HEIGHT,
@@ -8,13 +7,14 @@ import {
   UA,
   WINDOW_TITLE,
 } from './config';
+import {image} from './resouces';
 
 export function createMainWindow(): void {
   const mainWin = new BrowserWindow({
     minWidth: MIN_WINDOW_WIDTH,
     minHeight: MIN_WINDOW_HEIGHT,
     title: WINDOW_TITLE,
-    icon: image.logo,
+    icon: image.logo.ico,
     show: false,
   });
 

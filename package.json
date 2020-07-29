@@ -1,24 +1,72 @@
 {
   "name": "makeflow-pc",
   "private": true,
+  "author": "Makeflow",
+  "license": "ISC",
   "version": "1.0.0",
   "description": "The PC end of Makeflow.",
-  "main": "build/main.js",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "check": "tsc -p .",
-    "start": "electron ./build/main.js",
-    "pack": ""
-  },
-  "author": "mokuo",
-  "license": "ISC",
+  "main": "app/main/index.js",
   "devDependencies": {
     "@magicspace/configs": "^0.2.5",
     "electron": "^9.1.1",
+    "electron-builder": "^22.8.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
     "prettier-plugin-organize-imports": "^1.1.1",
+    "pretty-quick": "^2.0.1",
     "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "compile": "rm -rf app && tsc",
+    "watch": "tsc -w",
+    "check": "tsc -p .",
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "full-build": "rm -rf out && npm run compile && npm run dist"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
+  "build": {
+    "productName": "Makeflow",
+    "appId": "com.makeflow.makeflow-pc",
+    "directories": {
+      "output": "out"
+    },
+    "files": [
+      "!*.config.js",
+      "!src",
+      "!tsconfig.json"
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "target": "pkg",
+      "icon": "resources/image/logo.icns"
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ],
+      "icon": "resources/image/logo.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./resources/image/logo.ico",
+      "uninstallerIcon": "./resources/image/logo.ico",
+      "installerHeaderIcon": "./resources/image/logo.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Makeflow"
+    }
   }
 }
