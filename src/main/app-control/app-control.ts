@@ -20,8 +20,13 @@ class AppControl {
     app.once('ready', () => {
       this.createMainWindow();
       this.createTray();
+
       isMac(() => import('./init/mac'));
       isWindows(() => import('./init/windows'));
+
+      if (!app.isPackaged) {
+        this.mainWindow.webContents.openDevTools();
+      }
     });
   }
 
@@ -56,6 +61,10 @@ class AppControl {
       minWidth: MIN_WINDOW_WIDTH,
       title: WINDOW_TITLE,
       icon: resources.images.windowIcon,
+      webPreferences: {
+        nodeIntegration: true,
+        preload: resources.js.preload,
+      },
     });
 
     win.once('ready-to-show', () => {
