@@ -1,0 +1,22 @@
+.normal-sidebar {
+  padding-top: 48px;
+  width: 68px !important;
+  -webkit-app-region: drag;
+  transition: padding-top 300ms;
+}
+
+.normal-sidebar > div:first-child {
+  width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.electron-drag {
+  -webkit-app-region: drag;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: transparent;
+  pointer-events: none;
+}

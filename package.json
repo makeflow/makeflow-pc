@@ -70,5 +70,6 @@
       "createStartMenuShortcut": true,
       "shortcutName": "Makeflow"
     }
-  }
+  },
+  "dependencies": {}
 }

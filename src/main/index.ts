@@ -1,3 +1,4 @@
+import {app} from 'electron';
 import {appControl} from './app-control';
 
-appControl.run();
+app.once('ready', () => appControl.run());

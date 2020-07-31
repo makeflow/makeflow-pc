@@ -1,4 +1,6 @@
 import {app, BrowserWindow, Menu, Tray} from 'electron';
+import {resources} from '../../resources';
+import {src, whenMacOS, whenWindows} from '../../utils';
 import {
   ENDPOINT,
   MIN_WINDOW_HEIGHT,
@@ -7,8 +9,6 @@ import {
   UA,
   WINDOW_TITLE,
 } from '../config';
-import {resources} from '../resources';
-import {isMac, isWindows} from '../utils';
 
 class AppControl {
   private mainWindow!: BrowserWindow;
@@ -17,17 +17,15 @@ class AppControl {
   shouldExitOnMacOS = false;
 
   run() {
-    app.once('ready', () => {
-      this.createMainWindow();
-      this.createTray();
+    this.createMainWindow();
+    this.createTray();
 
-      isMac(() => import('./init/mac'));
-      isWindows(() => import('./init/windows'));
+    whenMacOS(() => import('./init/mac'));
+    whenWindows(() => import('./init/windows'));
 
-      if (!app.isPackaged) {
-        this.mainWindow.webContents.openDevTools();
-      }
-    });
+    if (!app.isPackaged) {
+      this.mainWindow.webContents.openDevTools();
+    }
   }
 
   getMainWindow(): BrowserWindow {
@@ -53,7 +51,7 @@ class AppControl {
   }
 
   private createMainWindow(): void {
-    const win = new BrowserWindow({
+    let win = new BrowserWindow({
       show: false,
       height: MIN_WINDOW_HEIGHT,
       width: MIN_WINDOW_WIDTH,
@@ -61,9 +59,15 @@ class AppControl {
       minWidth: MIN_WINDOW_WIDTH,
       title: WINDOW_TITLE,
       icon: resources.images.windowIcon,
+      frame: false,
+      titleBarStyle: 'hidden',
+      trafficLightPosition: {x: 7, y: 31},
+      fullscreenWindowTitle: true,
+      backgroundColor: '#FFF',
       webPreferences: {
+        enableRemoteModule: true,
         nodeIntegration: true,
-        preload: resources.js.preload,
+        preload: src('renderer/preload.js'),
       },
     });
 
@@ -82,7 +86,7 @@ class AppControl {
   }
 
   private createTray(): void {
-    const tray = new Tray(resources.images.tray);
+    let tray = new Tray(resources.images.tray);
 
     tray.setContextMenu(
       Menu.buildFromTemplate([
