@@ -13,7 +13,6 @@ import {
   MIN_WINDOW_HEIGHT,
   MIN_WINDOW_WIDTH,
   TRAY_TOOLTIP,
-  UA,
   WINDOW_TITLE,
 } from '../config';
 
@@ -45,6 +44,39 @@ class AppControl {
   private trayTemplate: MenuItemConstructorOptions[] = [
     {label: '显示主界面', click: () => this.showMainWindow()},
     {label: '退出', click: () => this.exit()},
+  ];
+
+  private macOSAppMenuTemplate: MenuItemConstructorOptions[] = [
+    {
+      label: 'Makeflow',
+      submenu: [
+        // {role: 'about'},
+        {type: 'separator'},
+        {role: 'hide'},
+        {role: 'unhide'},
+        {type: 'separator'},
+        {role: 'quit'},
+      ],
+    },
+    {
+      role: 'editMenu',
+      submenu: [
+        {role: 'undo'},
+        {role: 'redo'},
+        {type: 'separator'},
+        {role: 'cut'},
+        {role: 'copy'},
+        {role: 'paste'},
+      ],
+    },
+    {
+      role: 'viewMenu',
+      submenu: [{role: 'togglefullscreen'}],
+    },
+    {
+      role: 'window',
+      submenu: [{role: 'minimize'}, {role: 'close'}],
+    },
   ];
 
   shouldExitOnMacOS = false;
@@ -86,16 +118,20 @@ class AppControl {
   private createMainWindow(): void {
     let win = new BrowserWindow(this.browserWindowConfig);
 
+    whenWindows(() => Menu.setApplicationMenu(null));
+    whenMacOS(() =>
+      Menu.setApplicationMenu(
+        Menu.buildFromTemplate(this.macOSAppMenuTemplate),
+      ),
+    );
+
     win.once('ready-to-show', () => {
       win.center();
       win.show();
     });
 
-    win.loadURL(ENDPOINT, {
-      userAgent: UA,
-    });
+    win.loadURL(ENDPOINT);
 
-    Menu.setApplicationMenu(null);
     this.mainWindow = win;
   }
 
