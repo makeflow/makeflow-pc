@@ -1,5 +1,5 @@
-import {resources} from '../resources';
-import {htmlToElement} from '../utils';
+import {resources} from '../../resources';
+import {htmlToElement} from '../../utils';
 
 const windowsTitlebar = htmlToElement(resources.html.win.titlebar);
 

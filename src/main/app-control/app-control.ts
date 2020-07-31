@@ -1,4 +1,11 @@
-import {app, BrowserWindow, Menu, Tray} from 'electron';
+import {
+  app,
+  BrowserWindow,
+  BrowserWindowConstructorOptions,
+  Menu,
+  MenuItemConstructorOptions,
+  Tray,
+} from 'electron';
 import {resources} from '../../resources';
 import {src, whenMacOS, whenWindows} from '../../utils';
 import {
@@ -12,7 +19,33 @@ import {
 
 class AppControl {
   private mainWindow!: BrowserWindow;
+
   private tray!: Tray;
+
+  private browserWindowConfig: BrowserWindowConstructorOptions = {
+    show: false,
+    height: MIN_WINDOW_HEIGHT,
+    width: MIN_WINDOW_WIDTH,
+    minHeight: MIN_WINDOW_HEIGHT,
+    minWidth: MIN_WINDOW_WIDTH,
+    title: WINDOW_TITLE,
+    icon: resources.images.windowIcon,
+    frame: false,
+    titleBarStyle: 'hidden',
+    trafficLightPosition: {x: 7, y: 31},
+    fullscreenWindowTitle: true,
+    backgroundColor: '#FFF',
+    webPreferences: {
+      enableRemoteModule: true,
+      nodeIntegration: true,
+      preload: src('renderer/preload.js'),
+    },
+  };
+
+  private trayTemplate: MenuItemConstructorOptions[] = [
+    {label: '显示主界面', click: () => this.showMainWindow()},
+    {label: '退出', click: () => this.exit()},
+  ];
 
   shouldExitOnMacOS = false;
 
@@ -20,8 +53,8 @@ class AppControl {
     this.createMainWindow();
     this.createTray();
 
-    whenMacOS(() => import('./init/mac'));
-    whenWindows(() => import('./init/windows'));
+    whenMacOS(() => import('./platform/mac'));
+    whenWindows(() => import('./platform/windows'));
 
     if (!app.isPackaged) {
       this.mainWindow.webContents.openDevTools();
@@ -51,25 +84,7 @@ class AppControl {
   }
 
   private createMainWindow(): void {
-    let win = new BrowserWindow({
-      show: false,
-      height: MIN_WINDOW_HEIGHT,
-      width: MIN_WINDOW_WIDTH,
-      minHeight: MIN_WINDOW_HEIGHT,
-      minWidth: MIN_WINDOW_WIDTH,
-      title: WINDOW_TITLE,
-      icon: resources.images.windowIcon,
-      frame: false,
-      titleBarStyle: 'hidden',
-      trafficLightPosition: {x: 7, y: 31},
-      fullscreenWindowTitle: true,
-      backgroundColor: '#FFF',
-      webPreferences: {
-        enableRemoteModule: true,
-        nodeIntegration: true,
-        preload: src('renderer/preload.js'),
-      },
-    });
+    let win = new BrowserWindow(this.browserWindowConfig);
 
     win.once('ready-to-show', () => {
       win.center();
@@ -81,22 +96,13 @@ class AppControl {
     });
 
     Menu.setApplicationMenu(null);
-
     this.mainWindow = win;
   }
 
   private createTray(): void {
     let tray = new Tray(resources.images.tray);
-
-    tray.setContextMenu(
-      Menu.buildFromTemplate([
-        {label: '显示主界面', click: () => this.showMainWindow()},
-        {label: '退出', click: () => this.exit()},
-      ]),
-    );
-
+    tray.setContextMenu(Menu.buildFromTemplate(this.trayTemplate));
     tray.setToolTip(TRAY_TOOLTIP);
-
     this.tray = tray;
   }
 }
