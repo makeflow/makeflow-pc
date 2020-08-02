@@ -17,6 +17,8 @@ import {
 } from '../config';
 
 class AppControl {
+  private isPrimaryInstance = app.requestSingleInstanceLock();
+
   private mainWindow!: BrowserWindow;
 
   private tray!: Tray;
@@ -82,6 +84,8 @@ class AppControl {
   shouldExitOnMacOS = false;
 
   run() {
+    this.makeSingleInstance();
+
     this.createMainWindow();
     this.createTray();
 
@@ -113,6 +117,15 @@ class AppControl {
 
   showMainWindow(): void {
     this.mainWindow.show();
+  }
+
+  private makeSingleInstance(): void {
+    if (!this.isPrimaryInstance) {
+      app.quit();
+      return;
+    }
+
+    app.on('second-instance', () => this.showMainWindow());
   }
 
   private createMainWindow(): void {
