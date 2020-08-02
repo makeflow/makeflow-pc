@@ -12,12 +12,18 @@ export function htmlToElement(html: string): Element {
 }
 
 export function insertCSS(css: string): void {
-  runAfterDOMContentLoaded(() => {
+  const insert = () => {
     let style = document.createElement('style');
     style.innerHTML = css;
     style.type = 'text/css';
     document.head.append(style);
-  });
+  };
+
+  if (document.readyState === 'loading') {
+    runAfterDOMContentLoaded(insert);
+  } else {
+    insert();
+  }
 }
 
 export function runAfterDOMContentLoaded(callback: () => void): void {

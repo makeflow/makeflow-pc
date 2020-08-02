@@ -11,7 +11,7 @@ let isLoadSpinning = false;
  * what's happening in Makeflow web, and then dispatch
  * custom events on window object for global useage.
  */
-export function startWatchingMakeflowDOMChange(): void {
+export function startWatchingMakeflow(): void {
   let observer = new MutationObserver(() => {
     if (document.getElementById('loading-circle-container')) {
       if (!isLoadSpinning) {
