@@ -2,7 +2,7 @@ import {app} from 'electron';
 
 export let ENDPOINT = app.isPackaged
   ? 'https://www.makeflow.com/app/workbench'
-  : 'http://localhost:8060/app/workbench';
+  : 'http://localhost:8080/app/workbench';
 
 export const MIN_WINDOW_WIDTH = 1280;
 
