@@ -8,7 +8,7 @@
   "main": "app/main/index.js",
   "devDependencies": {
     "@magicspace/configs": "^0.2.5",
-    "electron": "^9.1.1",
+    "electron": "^9.1.2",
     "electron-builder": "^22.8.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",

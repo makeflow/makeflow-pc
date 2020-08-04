@@ -2,23 +2,35 @@
  * Inject Electron things into web page.
  */
 
-import {remote} from 'electron';
+import {webFrame} from 'electron';
 import {resources} from '../resources';
-import {insertCSS, whenMacOS, whenWindows} from '../utils';
+import {whenMacOS, whenWindows} from '../utils';
 import {startWatchingMakeflow} from './event';
 import {adjustStyleForWindowControl} from './platform/mac';
 import {insertWindowTitlebar} from './platform/win';
 
-const currentWindow = remote.getCurrentWindow();
-
 window.electron = {
-  window: currentWindow,
+  get window() {
+    let win = require('electron').remote.getCurrentWindow();
+
+    window.addEventListener(
+      'beforeunload',
+      () => win.removeAllListeners('browser-window:clear-all-except-fixed'),
+      {once: true},
+    );
+
+    return win;
+  },
 };
+
+// for jquery used by wechat login.
+delete window.exports;
+delete window.module;
 
 startWatchingMakeflow();
 
-insertCSS(resources.css.common);
-insertCSS(resources.css.platform);
+webFrame.insertCSS(resources.css.common);
+webFrame.insertCSS(resources.css.platform);
 
 whenMacOS(adjustStyleForWindowControl);
 whenWindows(insertWindowTitlebar);

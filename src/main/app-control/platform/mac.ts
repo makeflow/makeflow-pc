@@ -1,5 +1,6 @@
 import {app} from 'electron';
 import {appControl} from '../app-control';
+import {recordFixedEventHandler} from '../browser-window-events';
 
 const win = appControl.getMainWindow();
 
@@ -9,11 +10,15 @@ app.once('before-quit', () => {
   appControl.shouldExitOnMacOS = true;
 });
 
-win.on('close', event => {
+function onClose(event: Electron.Event): void {
   if (!appControl.shouldExitOnMacOS) {
     event.preventDefault();
     appControl.hideMainWindow();
   } else {
     appControl.exit();
   }
-});
+}
+
+win.on('close', onClose);
+
+recordFixedEventHandler(win, 'close', onClose);

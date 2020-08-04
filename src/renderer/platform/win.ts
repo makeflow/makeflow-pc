@@ -66,7 +66,12 @@ export function insertWindowTitlebar(): void {
       return;
     }
 
-    let header = appRoot.querySelector('.header')!;
+    let header = appRoot.querySelector('.header');
+
+    if (!header) {
+      return;
+    }
+
     header.insertAdjacentElement('beforebegin', windowsTitlebar);
   });
 }

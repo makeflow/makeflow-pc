@@ -17,7 +17,7 @@ import {
 } from '../config';
 
 class AppControl {
-  private isPrimaryInstance = app.requestSingleInstanceLock();
+  private primaryInstance = app.requestSingleInstanceLock();
 
   private mainWindow!: BrowserWindow;
 
@@ -89,6 +89,7 @@ class AppControl {
     this.createMainWindow();
     this.createTray();
 
+    import('./platform/common');
     whenMacOS(() => import('./platform/mac'));
     whenWindows(() => import('./platform/windows'));
 
@@ -120,7 +121,7 @@ class AppControl {
   }
 
   private makeSingleInstance(): void {
-    if (!this.isPrimaryInstance) {
+    if (!this.primaryInstance) {
       app.quit();
       return;
     }

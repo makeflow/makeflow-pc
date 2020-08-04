@@ -11,21 +11,10 @@ export function htmlToElement(html: string): Element {
   return element;
 }
 
-export function insertCSS(css: string): void {
-  const insert = () => {
-    let style = document.createElement('style');
-    style.innerHTML = css;
-    style.type = 'text/css';
-    document.head.append(style);
-  };
-
-  if (document.readyState === 'loading') {
-    runAfterDOMContentLoaded(insert);
-  } else {
-    insert();
-  }
-}
-
 export function runAfterDOMContentLoaded(callback: () => void): void {
   window.addEventListener('DOMContentLoaded', callback, {once: true});
+}
+
+export function runAfterLoad(callback: () => void): void {
+  window.addEventListener('load', callback, {once: true});
 }

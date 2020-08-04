@@ -32,13 +32,13 @@ function changeSidebarStyleOnFullScreen(): void {
 }
 
 function hideWindowButtonOnLoadSpinning(): void {
-  let win = window.electron.window;
-
   window.addEventListener(MakeflowEvents.LoadSpinning, () => {
+    let win = window.electron.window;
     win.setWindowButtonVisibility(false);
   });
 
   window.addEventListener(MakeflowEvents.DoneLoadSpinning, () => {
+    let win = window.electron.window;
     win.setWindowButtonVisibility(true);
   });
 }
