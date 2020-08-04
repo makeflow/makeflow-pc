@@ -1,0 +1,16 @@
+.electron-go-back-btn {
+  width: 35px;
+  height: 35px;
+  margin: 10px;
+  border-radius: 50%;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  background-color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+}

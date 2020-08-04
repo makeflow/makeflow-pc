@@ -7,7 +7,8 @@ import {
   Tray,
 } from 'electron';
 import {resources} from '../../resources';
-import {src, whenMacOS, whenWindows} from '../../utils';
+import {SharedGlobalVars} from '../../types/shared-var';
+import {getHostFromUrl, src, whenMacOS, whenWindows} from '../../utils';
 import {
   ENDPOINT,
   MIN_WINDOW_HEIGHT,
@@ -89,6 +90,8 @@ class AppControl {
     this.createMainWindow();
     this.createTray();
 
+    this.setSharedGlobalVars();
+
     import('./platform/common');
     whenMacOS(() => import('./platform/mac'));
     whenWindows(() => import('./platform/windows'));
@@ -154,6 +157,10 @@ class AppControl {
     tray.setContextMenu(Menu.buildFromTemplate(this.trayTemplate));
     tray.setToolTip(TRAY_TOOLTIP);
     this.tray = tray;
+  }
+
+  private setSharedGlobalVars(): void {
+    Reflect.set(global, SharedGlobalVars.AppHost, getHostFromUrl(ENDPOINT));
   }
 }
 

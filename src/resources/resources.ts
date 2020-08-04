@@ -28,6 +28,9 @@ class Resources {
     win: {
       titlebar: this.getHTML('win-titlebar.html'),
     },
+    common: {
+      goBackButton: this.getHTML('go-back-button.html'),
+    },
   };
 
   private getImagePath(filename: string): string {

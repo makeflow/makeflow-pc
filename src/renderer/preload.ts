@@ -5,7 +5,8 @@
 import {webFrame} from 'electron';
 import {resources} from '../resources';
 import {whenMacOS, whenWindows} from '../utils';
-import {startWatchingMakeflow} from './event';
+import {MakeflowEvents, startWatchingMakeflow} from './event';
+import {addGoBackButton} from './platform/common';
 import {adjustStyleForWindowControl} from './platform/mac';
 import {insertWindowTitlebar} from './platform/win';
 
@@ -34,3 +35,5 @@ webFrame.insertCSS(resources.css.platform);
 
 whenMacOS(adjustStyleForWindowControl);
 whenWindows(insertWindowTitlebar);
+
+window.addEventListener(MakeflowEvents.ThirdPartyPage, addGoBackButton);
