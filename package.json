@@ -27,6 +27,8 @@
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "pack:china": "env ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ electron-builder --dir",
+    "dist:china": "env ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ electron-builder",
     "build": "webpack",
     "release": "sh ./scripts/release.sh"
   },
