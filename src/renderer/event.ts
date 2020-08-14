@@ -1,5 +1,5 @@
+import {SharedGlobalVars} from '@src/types/shared-var';
 import {remote} from 'electron';
-import {SharedGlobalVars} from '../types/shared-var';
 
 export enum MakeflowEvents {
   LoadSpinning = 'load-spinning',

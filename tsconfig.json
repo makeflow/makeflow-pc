@@ -9,7 +9,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["src/types"],
-    "allowJs": true
+    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@resources/*": ["./resources/*"]
+    }
   },
   "include": ["src/**/*"]
 }

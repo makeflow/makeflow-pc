@@ -1,4 +1,14 @@
 import {
+  ENDPOINT,
+  MIN_WINDOW_HEIGHT,
+  MIN_WINDOW_WIDTH,
+  TRAY_TOOLTIP,
+  WINDOW_TITLE,
+} from '@src/main/config';
+import {resources} from '@src/resources';
+import {SharedGlobalVars} from '@src/types/shared-var';
+import {absolute, getHostFromUrl, whenMacOS, whenWindows} from '@src/utils';
+import {
   app,
   BrowserWindow,
   BrowserWindowConstructorOptions,
@@ -6,16 +16,6 @@ import {
   MenuItemConstructorOptions,
   Tray,
 } from 'electron';
-import {resources} from '../../resources';
-import {SharedGlobalVars} from '../../types/shared-var';
-import {getHostFromUrl, src, whenMacOS, whenWindows} from '../../utils';
-import {
-  ENDPOINT,
-  MIN_WINDOW_HEIGHT,
-  MIN_WINDOW_WIDTH,
-  TRAY_TOOLTIP,
-  WINDOW_TITLE,
-} from '../config';
 
 class AppControl {
   private primaryInstance = app.requestSingleInstanceLock();
@@ -40,7 +40,8 @@ class AppControl {
     webPreferences: {
       enableRemoteModule: true,
       nodeIntegration: true,
-      preload: src('renderer/preload.js'),
+      // this is the path of preload.js after being built by webpack.
+      preload: absolute('../renderer/preload.js'),
     },
   };
 

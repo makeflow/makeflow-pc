@@ -5,25 +5,29 @@
   "license": "ISC",
   "version": "1.0.7",
   "description": "Makeflow for PC.",
-  "main": "app/main/index.js",
+  "main": "app/main/main.js",
   "devDependencies": {
     "@magicspace/configs": "^0.2.5",
+    "clean-webpack-plugin": "^3.0.0",
     "electron": "^9.1.2",
     "electron-builder": "^22.8.0",
     "husky": "^4.2.5",
+    "node-file-path-loader": "^1.0.1",
     "prettier": "^2.0.5",
     "prettier-plugin-organize-imports": "^1.1.1",
     "pretty-quick": "^2.0.1",
-    "typescript": "^3.9.7"
+    "raw-loader": "^4.0.1",
+    "ts-loader": "^8.0.2",
+    "typescript": "^3.9.7",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
   },
   "scripts": {
-    "compile": "rm -rf app && tsc",
-    "watch": "tsc -w",
     "check": "tsc -p .",
     "start": "electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
-    "build": "rm -rf out && npm run compile",
+    "build": "webpack",
     "release": "sh ./scripts/release.sh"
   },
   "husky": {
@@ -38,10 +42,13 @@
       "output": "out"
     },
     "files": [
+      "!.*",
       "!*.config.js",
       "!src",
       "!tsconfig.json",
-      "!scripts"
+      "!scripts",
+      "!resources",
+      "!*.md"
     ],
     "mac": {
       "category": "public.app-category.productivity",

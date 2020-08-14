@@ -1,51 +1,39 @@
-import path from 'path';
-import {getContentString, root, switchPlatform} from '../utils';
+import commonCss from '@resources/css/common.css';
+import macCss from '@resources/css/mac.css';
+import winCss from '@resources/css/win.css';
+import goBackButtonHtml from '@resources/html/go-back-button.html';
+import winTitlebarHtml from '@resources/html/win-titlebar.html';
+import logoIco from '@resources/image/logo.ico';
+import macTrayTemplatePng from '@resources/image/mac-tray-Template.png';
+import {switchPlatform} from '@src/utils';
 
-const RESOURCES_PATH = root('resources');
-
-class Resources {
-  images = {
+export const resources = {
+  images: {
     tray: switchPlatform({
-      win32: this.getImagePath('logo.ico'),
-      darwin: this.getImagePath('mac-tray-Template.png'),
+      win32: logoIco,
+      darwin: macTrayTemplatePng,
     }),
 
     windowIcon: switchPlatform({
-      win32: this.getImagePath('logo.ico'),
-      darwin: this.getImagePath('mac-tray-Template.png'),
+      win32: logoIco,
+      darwin: macTrayTemplatePng,
     }),
-  };
+  },
 
-  css = {
-    common: this.getCSS('common.css'),
+  css: {
+    common: commonCss,
     platform: switchPlatform({
-      win32: this.getCSS('win.css'),
-      darwin: this.getCSS('mac.css'),
+      win32: winCss,
+      darwin: macCss,
     }),
-  };
+  },
 
-  html = {
+  html: {
     win: {
-      titlebar: this.getHTML('win-titlebar.html'),
+      titlebar: winTitlebarHtml,
     },
     common: {
-      goBackButton: this.getHTML('go-back-button.html'),
+      goBackButton: goBackButtonHtml,
     },
-  };
-
-  private getImagePath(filename: string): string {
-    return path.join(RESOURCES_PATH, 'image', filename);
-  }
-
-  private getCSS(filename: string): string {
-    let filepath = path.join(RESOURCES_PATH, 'css', filename);
-    return getContentString(filepath);
-  }
-
-  private getHTML(filename: string): string {
-    let filepath = path.join(RESOURCES_PATH, 'html', filename);
-    return getContentString(filepath);
-  }
-}
-
-export const resources = new Resources();
+  },
+};

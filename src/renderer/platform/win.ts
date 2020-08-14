@@ -1,6 +1,6 @@
-import {resources} from '../../resources';
-import {htmlToElement, runAfterDOMContentLoaded} from '../../utils';
-import {MakeflowEvents} from '../event';
+import {MakeflowEvents} from '@src/renderer/event';
+import {resources} from '@src/resources';
+import {htmlToElement, runAfterDOMContentLoaded} from '@src/utils';
 
 let windowsTitlebar = htmlToElement(resources.html.win.titlebar);
 

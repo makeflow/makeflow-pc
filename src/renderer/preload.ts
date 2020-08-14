@@ -2,13 +2,13 @@
  * Inject Electron things into web page.
  */
 
+import {MakeflowEvents, startWatchingMakeflow} from '@src/renderer/event';
+import {addGoBackButton} from '@src/renderer/platform/common';
+import {adjustStyleForWindowControl} from '@src/renderer/platform/mac';
+import {insertWindowTitlebar} from '@src/renderer/platform/win';
+import {resources} from '@src/resources';
+import {whenMacOS, whenWindows} from '@src/utils';
 import {webFrame} from 'electron';
-import {resources} from '../resources';
-import {whenMacOS, whenWindows} from '../utils';
-import {MakeflowEvents, startWatchingMakeflow} from './event';
-import {addGoBackButton} from './platform/common';
-import {adjustStyleForWindowControl} from './platform/mac';
-import {insertWindowTitlebar} from './platform/win';
 
 window.electron = {
   get window() {

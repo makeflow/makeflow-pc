@@ -1,5 +1,5 @@
-import {resources} from '../../resources';
-import {htmlToElement} from '../../utils';
+import {resources} from '@src/resources';
+import {htmlToElement} from '@src/utils';
 
 const goBackButton = htmlToElement(
   resources.html.common.goBackButton,

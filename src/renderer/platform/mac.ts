@@ -1,5 +1,5 @@
-import {runAfterDOMContentLoaded} from '../../utils';
-import {MakeflowEvents} from '../event';
+import {MakeflowEvents} from '@src/renderer/event';
+import {runAfterDOMContentLoaded} from '@src/utils';
 
 export function adjustStyleForWindowControl(): void {
   changeSidebarStyleOnFullScreen();
