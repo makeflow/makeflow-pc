@@ -40,4 +40,4 @@ For example:
 npm run release -- 1.0.0
 ```
 
-This will update the version of this app and trigger the CI to build this version of unsigned installers for both Windows and macOS. Installer files can be found at release page as drafts.
+This will update the version of this app and trigger the CI to build unsigned installers of this version for both Windows and macOS. Installer files can be found at release page as drafts.
