@@ -31,7 +31,8 @@
     "dist:china": "env ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ electron-builder",
     "build": "env NODE_ENV=production webpack",
     "build:dev": "webpack",
-    "release": "sh ./scripts/release.sh"
+    "release": "bash ./scripts/release.sh",
+    "sign": "bash ./scripts/sign.sh"
   },
   "husky": {
     "hooks": {
@@ -48,9 +49,12 @@
       "!.*",
       "!*.config.js",
       "!src",
-      "!tsconfig.json",
-      "!scripts",
       "!resources",
+      "!scripts",
+      "!out",
+      "!signed",
+      "!tsconfig.json",
+      "!package-lock.json",
       "!*.md"
     ],
     "mac": {
