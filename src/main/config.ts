@@ -1,9 +1,9 @@
-import {app} from 'electron';
+import {switchDevAndProd} from '@src/utils';
 
-export let ENDPOINT =
-  process.env.NODE_ENV === 'production' || app.isPackaged
-    ? 'https://www.makeflow.com/app/workbench'
-    : 'http://localhost:8060/app/workbench';
+export const ENDPOINT = switchDevAndProd({
+  prod: 'https://www.makeflow.com/app/workbench',
+  dev: 'http://localhost:8060/app/workbench',
+});
 
 export const MIN_WINDOW_WIDTH = 1280;
 

@@ -3,16 +3,12 @@ appId: com.makeflow.makeflow-pc
 directories:
   output: out
 files:
-  - '!.*'
-  - '!*.config.js'
-  - '!src'
-  - '!resources'
-  - '!scripts'
-  - '!out'
-  - '!signed'
-  - '!tsconfig.json'
-  - '!package-lock.json'
-  - '!*.md'
+  - 'app'
+  - '!node_modules'
+publish:
+  - provider: generic
+    # TODO: add production download url
+    url: ''
 win:
   target:
     - target: nsis

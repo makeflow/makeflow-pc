@@ -9,7 +9,7 @@ const baseConfig = {
   },
 
   resolve: {
-    extensions: ['.ts'],
+    extensions: ['.ts', '.js'],
     alias: {
       '@src': path.resolve(__dirname, './src'),
       '@resources': path.resolve(__dirname, './resources'),

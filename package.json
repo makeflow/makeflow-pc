@@ -24,7 +24,7 @@
   },
   "scripts": {
     "check": "tsc -p .",
-    "start": "electron .",
+    "start": "cp ./dev-app-update.yml ./app && electron .",
     "pack": "electron-builder --dir",
     "pack:china": "env ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ electron-builder --dir",
     "dist": "electron-builder",
@@ -40,26 +40,28 @@
     }
   },
   "build": {
+    "asar": false,
     "productName": "Makeflow",
     "appId": "com.makeflow.makeflow-pc",
     "directories": {
       "output": "out"
     },
     "files": [
-      "!.*",
-      "!*.config.js",
-      "!src",
-      "!resources",
-      "!scripts",
-      "!out",
-      "!signed",
-      "!tsconfig.json",
-      "!package-lock.json",
-      "!*.md"
+      "app",
+      "!node_modules"
+    ],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1:5500/out"
+      }
     ],
     "mac": {
       "category": "public.app-category.productivity",
-      "target": "dmg",
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "icon": "resources/image/logo-mac.icns"
     },
     "win": {
@@ -85,5 +87,8 @@
       "shortcutName": "Makeflow"
     }
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-log": "^4.2.4",
+    "electron-updater": "^4.3.4"
+  }
 }

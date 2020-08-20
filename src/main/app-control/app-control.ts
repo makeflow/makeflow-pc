@@ -16,6 +16,11 @@ import {
   MenuItemConstructorOptions,
   Tray,
 } from 'electron';
+import logger from 'electron-log';
+import {autoUpdater} from 'electron-updater';
+
+logger.transports.file.level = 'info';
+autoUpdater.logger = logger;
 
 class AppControl {
   private primaryInstance = app.requestSingleInstanceLock();
@@ -47,6 +52,7 @@ class AppControl {
 
   private trayTemplate: MenuItemConstructorOptions[] = [
     {label: '显示主界面', click: () => this.showMainWindow()},
+    {label: '检查更新', click: () => this.checkUpdate()},
     {label: '退出', click: () => this.exit()},
   ];
 
@@ -100,6 +106,8 @@ class AppControl {
     if (!app.isPackaged) {
       this.mainWindow.webContents.openDevTools();
     }
+
+    this.checkUpdate();
   }
 
   getMainWindow(): BrowserWindow {
@@ -122,6 +130,13 @@ class AppControl {
 
   showMainWindow(): void {
     this.mainWindow.show();
+  }
+
+  checkUpdate(): void {
+    autoUpdater.checkForUpdatesAndNotify({
+      title: 'Makeflow 更新',
+      body: 'Makeflow {version} 已下载，将在应用退出后自动安装',
+    });
   }
 
   private makeSingleInstance(): void {
