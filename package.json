@@ -3,7 +3,7 @@
   "private": true,
   "author": "Makeflow",
   "license": "ISC",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Makeflow for PC.",
   "main": "app/main/main.js",
   "devDependencies": {
