@@ -24,7 +24,7 @@
   },
   "scripts": {
     "check": "tsc -p .",
-    "start": "cp ./dev-app-update.yml ./app && electron .",
+    "start": "electron .",
     "pack": "electron-builder --dir",
     "pack:china": "env ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/ electron-builder --dir",
     "dist": "electron-builder",
