@@ -53,6 +53,7 @@ jobs:
       - name: Build/release Electron app
         shell: pwsh
         run: |
+          npm install
           npm run dist
 
           if (-not $?) {
