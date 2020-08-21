@@ -64,11 +64,9 @@ jobs:
 
           Get-ChildItem ./out -File | 
           Foreach-Object {
-            $assets += "-a ./out/" + $_.Name
+            $filePath = $_.FullName
+            $assets += "-a$filePath"
           }
-
-          Get-Location
-          Get-ChildItem
 
           hub release edit $assets -m $tagName $tagName
         env:
