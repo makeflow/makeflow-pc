@@ -17,8 +17,22 @@ jobs:
           npm install
           npm run check
 
-  release:
+  create-release:
     needs: check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create release
+        run: |
+          tag_name="${GITHUB_REF##*/}"
+          hub release create -m "$tag_name" "$tag_name"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    needs: create-release
 
     runs-on: ${{ matrix.os }}
     if: github.event_name == 'push'
@@ -37,7 +51,22 @@ jobs:
           node-version: 14
 
       - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          github_token: ${{ secrets.github_token }}
-          release: true
+        shell: pwsh
+        run: |
+          npm run dist
+
+          if (-not $?) {
+            throw "dist failed"
+          }
+
+          $tagName = ${env:GITHUB_REF} -replace "refs/tags/", ""
+          $assets = @()
+
+          Get-ChildItem ./out -File | 
+          Foreach-Object {
+            $assets += "-a " + $_.FullName
+          }
+
+          hub release edit $assets -m $tagName $tagName
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
