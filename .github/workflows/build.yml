@@ -66,7 +66,7 @@ jobs:
 
           Get-ChildItem ./out -File | 
           Foreach-Object {
-            $assets += "-a " + $_.FullName
+            $assets += "-a ./out/" + $_.Name
           }
 
           hub release edit $assets -m $tagName $tagName
