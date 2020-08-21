@@ -49,18 +49,16 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
-
-      - name: Build/release Electron app
-        shell: pwsh
+      
+      - name: Build
         run: |
           npm install
           npm run build
           npm run dist
 
-          if (-not $?) {
-            throw "dist failed"
-          }
-
+      - name: Release
+        shell: pwsh
+        run: |
           $tagName = ${env:GITHUB_REF} -replace "refs/tags/", ""
           $assets = @()
 
