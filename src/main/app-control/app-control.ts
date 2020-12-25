@@ -165,12 +165,6 @@ class AppControl {
       win.show();
     });
 
-    win.on('close', () => {
-      if (win.isFullScreen()) {
-        win.setFullScreen(false);
-      }
-    });
-
     win.loadURL(ENDPOINT);
 
     this.mainWindow = win;

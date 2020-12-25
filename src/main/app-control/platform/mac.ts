@@ -13,7 +13,16 @@ app.once('before-quit', () => {
 function onClose(event: Electron.Event): void {
   if (!appControl.shouldExitOnMacOS) {
     event.preventDefault();
-    appControl.hideMainWindow();
+
+    if (win.isFullScreen()) {
+      win.once('leave-full-screen', () => {
+        appControl.hideMainWindow();
+      });
+
+      win.setFullScreen(false);
+    } else {
+      appControl.hideMainWindow();
+    }
   } else {
     appControl.exit();
   }
