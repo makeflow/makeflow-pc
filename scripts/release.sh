@@ -3,11 +3,11 @@
 VERSION=$1
 
 if [ -z "$VERSION" ]; then
-  echo "'version' not set! try running 'yarn release -- <your version>'"
+  echo "'version' not set! try running 'yarn release <your version>'"
   exit 1
 fi
 
-yarn version "$VERSION"
+yarn version --new-version "$VERSION"
 
 if [ 0 -ne $? ]; then
   exit 1
