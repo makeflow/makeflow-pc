@@ -1,5 +1,7 @@
 import {
   ENDPOINT,
+  INITIAL_WINDOW_HEIGHT,
+  INITIAL_WINDOW_WIDTH,
   MIN_WINDOW_HEIGHT,
   MIN_WINDOW_WIDTH,
   TRAY_TOOLTIP,
@@ -31,8 +33,8 @@ class AppControl {
 
   private browserWindowConfig: BrowserWindowConstructorOptions = {
     show: false,
-    height: MIN_WINDOW_HEIGHT,
-    width: MIN_WINDOW_WIDTH,
+    height: INITIAL_WINDOW_HEIGHT,
+    width: INITIAL_WINDOW_WIDTH,
     minHeight: MIN_WINDOW_HEIGHT,
     minWidth: MIN_WINDOW_WIDTH,
     title: WINDOW_TITLE,
@@ -161,6 +163,12 @@ class AppControl {
     win.once('ready-to-show', () => {
       win.center();
       win.show();
+    });
+
+    win.on('close', () => {
+      if (win.isFullScreen()) {
+        win.setFullScreen(false);
+      }
     });
 
     win.loadURL(ENDPOINT);

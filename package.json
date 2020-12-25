@@ -62,7 +62,7 @@
         "dmg",
         "zip"
       ],
-      "icon": "resources/image/logo-mac.icns"
+      "icon": "resources/image/icon-mac.png"
     },
     "win": {
       "target": [

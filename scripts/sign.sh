@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-npm install
-npm run build
+yarn
+yarn build
 
 export ELECTRON_MIRROR="http://npm.taobao.org/mirrors/electron/"
 
-npx electron-builder --config ./electron-builder-sign.yml
+yarn electron-builder --config ./electron-builder-sign.yml
 
 mkdir --parents ./signed
 mv ./out/Makeflow*.exe $_

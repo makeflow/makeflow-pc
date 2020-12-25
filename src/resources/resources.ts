@@ -3,8 +3,9 @@ import macCss from '@resources/css/mac.css';
 import winCss from '@resources/css/win.css';
 import goBackButtonHtml from '@resources/html/go-back-button.html';
 import winTitlebarHtml from '@resources/html/win-titlebar.html';
+import macTrayTemplatePng from '@resources/image/icon-tray-Template.png';
+import '@resources/image/icon-tray-Template@2x.png';
 import logoIco from '@resources/image/logo.ico';
-import macTrayTemplatePng from '@resources/image/mac-tray-Template.png';
 import {switchPlatform} from '@src/utils';
 
 export const resources = {
